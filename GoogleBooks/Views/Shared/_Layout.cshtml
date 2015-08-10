@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<head>
+    <title>Google Books Demo</title>
+    <meta charset="UTF-8" />
+    @Styles.Render("~/Content/css")
+</head>
+<body ng-app="app" ng-controller="userCtrl as user">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Google Books API Demo", "Index", "Book", null, new { @class = "navbar-brand" })
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#/search">Search</a></li>
+                </ul>
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-hide="user.profile.isLoggedIn"><a href="#/login">Login</a></li>
+                    <li ng-hide="user.profile.isLoggedIn"><a href="#/register">Register</a></li>
+                    <li ng-show="user.profile.isLoggedIn"><a href="#" ng-click="user.logOut()">Log Out</a></li>
+                </ul>
+
+                <p class="navbar-text navbar-right" ng-show="user.profile.isLoggedIn" ng-bind-template="Welcome, {{ user.profile.username }}"/>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" ng-view>@RenderBody()</div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
+    <script src="~/Scripts/app/app.module.js"></script>
+    <script src="~/Scripts/app/app.routes.js"></script>
+    <script src="~/Scripts/app/app.config.js"></script>
+    <script src="~/Scripts/app/books/bookCtrl.js"></script>
+    <script src="~/Scripts/app/books/bookService.js"></script>
+    <script src="~/Scripts/app/common/userService.js"></script>
+    <script src="~/Scripts/app/common/userCtrl.js"></script>
+    <script src="~/Scripts/app/common/notificationService.js"></script>
+    <script src="~/Scripts/app/common/currentUser.js"></script>
+</body>
+</html>

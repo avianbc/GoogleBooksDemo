@@ -1,0 +1,21 @@
+﻿
+<form class="form-inline" ng-disabled="book.busy" ng-submit="book.search()">
+    <label>Search query</label>
+    <input type="text" class="form-control" ng-model="book.q" required />
+
+    <input type="submit" class="btn btn-primary" value="Search" />
+    <div ng-show="book.totalItems > book.maxResults" class="pull-right" ng-bind-template="Showing {{ book.maxResults }} of {{ book.totalItems }} results">
+    </div>
+</form>
+    
+<div class="media" ng-repeat="item in book.volumes">
+    <div class="media-left">
+        <img class="media-object" ng-src="{{ item.volumeInfo.imageLinks.smallThumbnail }}" alt="{{ item.volumeInfo.title }}">
+    </div>
+    <div class="media-body">
+        <h4 class="media-heading" ng-bind-template="{{ item.volumeInfo.title || 'No Title Provided' }} ({{ item.volumeInfo.publishedDate || 'No Date Provided' }})"></h4>
+        <div ng-bind="item.volumeInfo.description || 'No Description Provided'"/>
+    </div>
+</div>
+
+<pagination total-items="book.totalItems" class="pagination-sm" max-size="10" ng-model="book.currentPage" ng-change="book.get()" items-per-page="book.maxResults" ng-show="book.totalItems > book.maxResults"></pagination>
